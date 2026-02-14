@@ -57,13 +57,41 @@ export default function ZpayLanding() {
           className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#CC5500]/20 blur-3xl rounded-full"
         />
 
-        {/* Mockup flutuante */}
         <motion.div
           style={{ y: floatY, rotate: floatRotate }}
           className="absolute right-10 top-1/2 -translate-y-1/2 hidden lg:block"
         >
-          <div className="w-[320px] h-[640px] rounded-[40px] bg-black shadow-2xl border-4 border-gray-800 flex items-center justify-center text-white">
-            App Preview
+          {/* perspective cria o efeito 3D real */}
+          <div className="perspective-[1200px]">
+            <div
+              className="
+        relative
+        w-[320px] h-[640px]
+        rounded-[42px]
+        bg-black
+        shadow-[0_40px_80px_rgba(0,0,0,0.5)]
+        border border-gray-800
+        overflow-hidden
+        transform
+        rotate-x-[6deg]
+        -rotate-y-[12deg]
+      "
+            >
+              {/* IMAGEM DO APP */}
+              <Image
+                src="/app-preview.png"
+                alt="App Zpay"
+                fill
+                className="object-cover"
+                priority
+              />
+
+              {/* OVERLAY ESCURO SUAVE PARA MELHORAR CONTRASTE */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+
+              {/* BRILHO DE TELA (efeito premium) */}
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.25),transparent)] opacity-20" />
+            </div>
           </div>
         </motion.div>
 
@@ -71,7 +99,7 @@ export default function ZpayLanding() {
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="max-w-5xl mx-auto relative z-10  mt-20"
+          className="max-w-4xl mx-auto relative z-10  mt-20"
         >
           <h1 className="text-4xl md:text-6xl font-bold leading-tight font-[var(--font-poppins)]">
             Chega de fichas, lentidão no atendimento e falta de controle.
@@ -83,10 +111,22 @@ export default function ZpayLanding() {
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4">
-            <Button className="text-lg px-10 py-6 rounded-2xl bg-[#CC5500] hover:bg-[#b84b00] shadow-xl hover:scale-105 transition font-[var(--font-poppins)]">
-              QUERO CONHECER O ZPAY
-            </Button>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
 
+                const phone = "5561998159083";
+                const message = encodeURIComponent(
+                  "Olá! Quero solicitar uma demonstração do Zpay para meu evento."
+                );
+
+                window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+              }}
+            >
+              <Button className="text-lg px-10 py-6 rounded-2xl bg-[#CC5500] hover:bg-[#b84b00] shadow-xl hover:scale-105 transition font-[var(--font-poppins)]">
+                QUERO CONHECER O ZPAY
+              </Button>
+            </form>
             <p className="text-sm text-gray-300 font-[var(--font-inter)]">
               Sem compromisso • Atendimento rápido • Suporte durante o evento
             </p>
@@ -186,7 +226,7 @@ export default function ZpayLanding() {
             onSubmit={(e) => {
               e.preventDefault();
 
-              const phone = "5599999999999"; // ← coloque seu número com DDI + DDD
+              const phone = "5561998159083";
               const message = encodeURIComponent(
                 "Olá! Quero solicitar uma demonstração do Zpay para meu evento."
               );
